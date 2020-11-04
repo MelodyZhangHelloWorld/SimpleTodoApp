@@ -16,7 +16,7 @@ placeholder="Add Todo..">
 
 <script>
 // import uuid from 'uuid';
-// import { v4 as uuidv4 } from 'uuid'; /*https://www.npmjs.com/package/uuid */
+import { v4 as uuidv4 } from 'uuid'; /*https://www.npmjs.com/package/uuid */
 
 export default {
 
@@ -34,12 +34,13 @@ export default {
             if (this.title.trim() !== ''){ //* +
 
                 const newTodo = {
-             //   id: uuidv4(),  // generated via the api
+               id: uuidv4(),  
                 title: this.title,
                 completed: false
              }
 
                this.$emit('add-todo', newTodo);
+               console.log(newTodo);
                this.title = '';  //clear the input field
             }
 

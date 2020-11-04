@@ -25,7 +25,6 @@ export default {
     Header,
     TodoList,
     AddTodo
-    
 
   },
    data(){
@@ -48,12 +47,34 @@ export default {
    methods:{
 
      deletTodo(id){
-       this.todos = this.todos.filter(
-         todo => todo.id !== id  ); //* 
+
+       axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+       .then(
+         res => 
+         this.todos = this.todos.filter(
+         todo => todo.id !== id,//*
+         console.log(res.data))//...?
+         
+       ).catch(error => console.log(error) ); 
+
+
+        
      },
      
      addTodo(newTodo){
-        this.todos = [...this.todos, newTodo];
+        
+        const {id, title, completed} = newTodo; //** 
+        
+        axios.post('https://jsonplaceholder.typicode.com/todos', {id, title, completed})
+        .then(    
+         res => 
+          this.todos = [...this.todos, res.data],//*
+          console.log(this.todos)
+
+        )
+        .catch(error => console.log(error) ); 
+
+        
      }
     
 
