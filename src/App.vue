@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Header  />
    <TodoList :todo-list=todos 
    
    @del-todo="deletTodo" 
@@ -10,11 +11,15 @@
 
 <script>
 import TodoList from './components/TodoList.vue'
+import Header from './components/layout/Header'
 
 export default {
   name: 'App',
   components: {
+    Header,
     TodoList
+    
+
   },
    data(){
      return{
