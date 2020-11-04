@@ -2,21 +2,28 @@
   <div>
     <div :key=todo.id v-for="todo in todoList" >
      
-      <h3> {{ todo.title}} </h3>
+     
     
+    <TodoItem  :todo="todo" 
+    @del-todo="$emit('del-todo', todo.id)"
+    />
 
     </div>
   </div>
+
 </template>
+
+
+
 
 <script>
 
-
+import TodoItem from './TodoItem.vue'; //?
 export default {
   name: "TodoList",
 
    components:{
-     
+     TodoItem
  },
   props:["todoList"]
  

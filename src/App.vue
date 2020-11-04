@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-   <TodoList :todo-list=todos />
+   <TodoList :todo-list=todos 
+   
+   @del-todo="deletTodo" 
+   />
    
   </div>
 </template>
@@ -33,6 +36,12 @@ export default {
           }
 
        ]
+     }
+   },
+   methods:{
+     deletTodo(id){
+       this.todos = this.todos.filter(
+         todo => todo.id !== id  ); //* 
      }
    }
 }
