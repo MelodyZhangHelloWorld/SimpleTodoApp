@@ -63,7 +63,7 @@ export default {
      
      addTodo(newTodo){
         
-        const {id, title, completed} = newTodo; //** 
+        /*const {id, title, completed} = newTodo; //** 
         
         axios.post('https://jsonplaceholder.typicode.com/todos', {id, title, completed})
         .then(    
@@ -72,7 +72,9 @@ export default {
           console.log(this.todos)
 
         )
-        .catch(error => console.log(error) ); 
+        .catch(error => console.log(error) );  */
+
+        this.todos = [...this.todos, newTodo]; 
 
         
      }
@@ -88,11 +90,17 @@ export default {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  
   }
 
   body {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.4;
+      width: 100%;
+      padding-left: 300px;
+      padding-right: 300px;
+      
+
   }
 
   .btn {
