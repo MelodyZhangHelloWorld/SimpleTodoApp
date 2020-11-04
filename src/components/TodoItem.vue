@@ -24,7 +24,7 @@ export default {
 
     methods:{
         markComplet(){
-        this.todo.completed = !this.todocompleted; 
+        this.todo.completed = !this.todo.completed; 
         }
     }
     

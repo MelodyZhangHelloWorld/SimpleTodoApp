@@ -12,9 +12,12 @@
 
 <script>
 
-import Header from './components/layout/Header'
-import TodoList from './components/TodoList.vue'
-import AddTodo from './components/AddTodo.vue'
+import Header from './components/layout/Header';
+import TodoList from './components/TodoList.vue';
+import AddTodo from './components/AddTodo.vue';
+
+//**
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -27,34 +30,33 @@ export default {
   },
    data(){
      return{
-       todos:[
-          {
-            id:1,
-            title: "Todo One",
-            completed: true
-          },
-           {
-            id:2,
-            title: "Todo Two",
-            completed: true
-          },
-           {
-            id:3,
-            title: "Todo Three",
-            completed: false
-          }
-
-       ]
+       todos:[]
      }
    },
+ //* http request */
+   created(){
+  
+      axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5').then(
+        
+        response => 
+        { 
+          this.todos = response.data;
+        }
+      ).catch(error => console.log(error) )     
+    },
+
    methods:{
+
      deletTodo(id){
        this.todos = this.todos.filter(
          todo => todo.id !== id  ); //* 
      },
+     
      addTodo(newTodo){
         this.todos = [...this.todos, newTodo];
      }
+    
+
    }
 }
 </script>
