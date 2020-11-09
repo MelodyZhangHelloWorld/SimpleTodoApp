@@ -21,6 +21,7 @@ import Header from './components/layout/Header';
 import TodoList from './components/TodoList.vue';
 import AddTodo from './components/AddTodo.vue';
 
+import db from './components/firebaseInit'; //*
 //**
 import axios from 'axios';
 
@@ -34,19 +35,35 @@ export default {
   },
    data(){
      return{
-       todos:[]
+       todos:[],
+       item:''
+       
      }
    },
  //* http request */
    created(){
   
-      axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5').then(
-        
-        response => 
-        { 
-          this.todos = response.data;
+      
+      db.collection('todoList').get().then(
+        querySnapshot => {
+
+          querySnapshot.forEach (doc => {
+
+          //  console.log(doc.data());
+
+            const item ={
+              'id': doc.data().id,
+              'title': doc.data().title,
+              'completed': doc.data().completed
+            }
+            
+            this.todos.push(item);
+           
+          })
         }
-      ).catch(error => console.log(error) )     
+
+      )
+      
     },
 
    methods:{

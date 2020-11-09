@@ -6,7 +6,7 @@
     @del-todo="$emit('del-todo', todo.id)"
     />
 
-    </div>
+    </div> 
   </div>
 
 </template>
