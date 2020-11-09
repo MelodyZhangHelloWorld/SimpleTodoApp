@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <Header  />
-    <AddTodo  @add-todo="addTodo" />
+
+   
+    <b-row align-h="center" class="m-3">
+<b-col md="8" >
+   <Header  />
+  <AddTodo  @add-todo="addTodo" />
    <TodoList :todo-list=todos 
    
    @del-todo="deletTodo" 
    />
-   
+</b-col>
+    </b-row>
   </div>
 </template>
 
@@ -97,8 +102,7 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.4;
       width: 100%;
-      padding-left: 300px;
-      padding-right: 300px;
+    
       
 
   }
