@@ -3,7 +3,7 @@
     <div :key=todo.id v-for="todo in todoList" >
      
     <TodoItem  :todo="todo" 
-    @del-todo="$emit('del-todo', todo.id)"
+    @del-todo="$emit('del-todo', $event)"
     />
 
     </div> 

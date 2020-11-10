@@ -3,12 +3,13 @@
 
    
     <b-row align-h="center" class="m-3">
-<b-col md="8" >
+    <b-col md="8" >
    <Header  />
   <AddTodo  @add-todo="addTodo" />
+
    <TodoList :todo-list=todos 
    
-   @del-todo="deletTodo" 
+   @del-todo="deleteTodo" 
    />
 </b-col>
     </b-row>
@@ -22,8 +23,8 @@ import TodoList from './components/TodoList.vue';
 import AddTodo from './components/AddTodo.vue';
 
 import db from './components/firebaseInit'; //*
-//**
-import axios from 'axios';
+
+
 
 export default {
   name: 'App',
@@ -40,65 +41,52 @@ export default {
        
      }
    },
- //* http request */
+ 
    created(){
-  
-      
-      db.collection('todoList').get().then(
-        querySnapshot => {
-
+    
+      db.collection('todoList').orderBy('id').get().then(
+        querySnapshot => {    //*
           querySnapshot.forEach (doc => {
-
-          //  console.log(doc.data());
+           console.log(doc.data());
 
             const item ={
               'id': doc.data().id,
               'title': doc.data().title,
               'completed': doc.data().completed
-            }
-            
+            }           
             this.todos.push(item);
            
           })
         }
 
-      )
-      
+      )   
     },
 
    methods:{
 
-     deletTodo(id){
+     deleteTodo(id){
+                        //must be STRING
+ db.collection('todoList').doc(id+'').delete().then(function() {
+    console.log("Document with id: "+ id + " is successfully deleted!");
+        }).catch(function(error) {
+          console.error("Error removing document: ", error);
+      });
 
-       axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-       .then(
-         res => 
-         this.todos = this.todos.filter(
-         todo => todo.id !== id,//*
-         console.log(res.data))//...?
-         
-       ).catch(error => console.log(error) ); 
-
-
-        
+ this.todos = this.todos.filter(todo => todo.id !== id) //*
+       
      },
      
-     addTodo(newTodo){
+     addTodo(newTodo){ 
         
-        /*const {id, title, completed} = newTodo; //** 
-        
-        axios.post('https://jsonplaceholder.typicode.com/todos', {id, title, completed})
-        .then(    
-         res => 
-          this.todos = [...this.todos, res.data],//*
-          console.log(this.todos)
+       newTodo.id= this.todos.length +1,
+                           //doc('') --> auto-generated id
+       db.collection('todoList').doc(newTodo.id + '').set({  //****
+         id: newTodo.id,
+         title: newTodo.title,
+         completed: newTodo.completed
+       })
 
-        )
-        .catch(error => console.log(error) );  */
-
-        this.todos = [...this.todos, newTodo]; 
-
-        
+        this.todos.push(newTodo); //for instant update..
      }
     
 

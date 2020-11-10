@@ -8,25 +8,25 @@ placeholder="Add Todo..">
 
 <input type="submit" value="Add" class="btn">
 
-
 </form>
 
   </div>
 </template>
 
 <script>
-// import uuid from 'uuid';
-import { v4 as uuidv4 } from 'uuid'; /*https://www.npmjs.com/package/uuid */
 
 export default {
 
     name: "AddTodo",
+     props:["todoList"],
 
     data(){
         return{
             title:''
+
         }
     },
+    
     methods:{
         addTodo(e){
             e.preventDefault(); //not to refresh
@@ -34,13 +34,13 @@ export default {
             if (this.title.trim() !== ''){ //* +
 
                 const newTodo = {
-               id: uuidv4(),  
+            
                 title: this.title,
-                completed: false
+                completed: false //default setting               
              }
-
+                
                this.$emit('add-todo', newTodo);
-               console.log(newTodo);
+            
                this.title = '';  //clear the input field
             }
 
