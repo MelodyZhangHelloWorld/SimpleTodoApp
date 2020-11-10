@@ -3,7 +3,8 @@
     :class="{'is-complete':todo.completed}"
  >
       <p> 
-          <input type="checkbox" @change="markComplet">
+          <input type="checkbox" @change="$emit('mark-complet', todo.id)"
+          >
           {{todo.title}}
           
           <button @click="$emit('del-todo', todo.id)"
@@ -20,13 +21,8 @@
 export default {
 
    name: "TodoItem", 
-   props:["todo" ],
-
-    methods:{
-        markComplet(){
-        this.todo.completed = !this.todo.completed; 
-        }
-    }
+   props:["todo"],
+   emits: ["mark-complet"]
     
 }
 </script>

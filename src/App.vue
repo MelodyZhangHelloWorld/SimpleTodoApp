@@ -9,8 +9,13 @@
 
    <TodoList :todo-list=todos 
    
+   @mark-complet="markComplete"
    @del-todo="deleteTodo" 
+
+
    />
+
+   
 </b-col>
     </b-row>
   </div>
@@ -61,6 +66,7 @@ export default {
 
       )   
     },
+    
 
    methods:{
 
@@ -74,6 +80,32 @@ export default {
 
  this.todos = this.todos.filter(todo => todo.id !== id) //*
        
+     },
+
+    markComplete(id){
+      // console.log(id);   
+      // console.log(this.todos[(id-1)].completed);
+
+        db.collection('todoList').doc(id + '').set({
+          id: id,
+          title: this.todos[(id-1)].title,
+          completed: !this.todos[(id-1)].completed
+        })
+
+        this.todos[(id-1)] = {
+          id: id,
+           title: this.todos[(id-1)].title,
+          completed: !this.todos[(id-1)].completed
+        }
+
+        //?!!!! not a Vue-way have to update the class, just for DOM
+          this.todos = [...this.todos, this.todos[(id-1)]];
+          this.todos.pop(); 
+          
+
+        
+
+
      },
      
      addTodo(newTodo){ 
@@ -110,6 +142,9 @@ export default {
     
       
 
+  }
+  .is-complete {
+    text-decoration: line-through;
   }
 
   .btn {
