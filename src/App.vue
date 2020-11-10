@@ -3,7 +3,7 @@
 
    
     <b-row align-h="center" class="m-3">
-    <b-col md="8" >
+    <b-col md="7" >
    <Header  />
   <AddTodo  @add-todo="addTodo" />
 
@@ -101,10 +101,6 @@ export default {
         //?!!!! not a Vue-way have to update the class, just for DOM
           this.todos = [...this.todos, this.todos[(id-1)]];
           this.todos.pop(); 
-          
-
-        
-
 
      },
      
@@ -140,7 +136,7 @@ export default {
     line-height: 1.4;
       width: 100%;
     
-      
+      background-color: rgb(222, 245, 226);
 
   }
   .is-complete {
