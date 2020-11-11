@@ -27,6 +27,8 @@ import Header from './components/layout/Header';
 import TodoList from './components/TodoList.vue';
 import AddTodo from './components/AddTodo.vue';
 
+// import { v4 as uuidv4 } from 'uuid'; /*https://www.npmjs.com/package/uuid */
+
 import db from './components/firebaseInit'; //*
 
 
@@ -52,8 +54,9 @@ export default {
       db.collection('todoList').orderBy('id').get().then(
         querySnapshot => {    //*
           querySnapshot.forEach (doc => {
+    
            console.log(doc.data());
-
+       //     console.log((new Date()).getTime() );
             const item ={
               'id': doc.data().id,
               'title': doc.data().title,
@@ -71,45 +74,54 @@ export default {
    methods:{
 
      deleteTodo(id){
-                        //must be STRING
- db.collection('todoList').doc(id+'').delete().then(function() {
-    console.log("Document with id: "+ id + " is successfully deleted!");
+        // console.log("-------id-----------------");
+        // console.log(id);
+ db.collection('todoList').doc(id +'').delete().then(function() {
+    console.log("Document with id: " + id +" is successfully deleted!");
         }).catch(function(error) {
           console.error("Error removing document: ", error);
       });
 
- this.todos = this.todos.filter(todo => todo.id !== id) //*
+ this.todos = this.todos.filter(todo => todo.id !== id); //*
        
      },
 
     markComplete(id){
-      // console.log(id);   
-      // console.log(this.todos[(id-1)].completed);
-
-        db.collection('todoList').doc(id + '').set({
+      console.log("-------id-----------------");
+     console.log(id);   
+    
+    let thisTitle = this.todos.filter(todo => todo.id === id)[0].title; 
+    let thisCompleted = this.todos.filter(todo => todo.id === id)[0].completed;
+    
+        db.collection('todoList').doc(id+'').set({
           id: id,
-          title: this.todos[(id-1)].title,
-          completed: !this.todos[(id-1)].completed
+          title: thisTitle,
+          completed: ! thisCompleted
         })
+       
+  //conventional js
+      let i;
+    for (i = 0; i < this.todos.length; i ++){
+        if (this.todos[i].id == id ){
+          this.todos[i].completed = ! thisCompleted;
+        }
+    }
 
-        this.todos[(id-1)] = {
-          id: id,
-           title: this.todos[(id-1)].title,
-          completed: !this.todos[(id-1)].completed
+  console.log(this.todos);
+     
+     
         }
 
-        //?!!!! not a Vue-way have to update the class, just for DOM
-          this.todos = [...this.todos, this.todos[(id-1)]];
-          this.todos.pop(); 
-
-     },
+        
+         ,
      
      addTodo(newTodo){ 
-        
-       newTodo.id= this.todos.length +1,
-                           //doc('') --> auto-generated id
-       db.collection('todoList').doc(newTodo.id + '').set({  //****
-         id: newTodo.id,
+      
+        const newId = (new Date()).getTime(); //Get the time (milliseconds since January 1, 1970)
+
+       db.collection('todoList').doc(newId +'').set({  //****
+         
+         id: newId,
          title: newTodo.title,
          completed: newTodo.completed
        })
