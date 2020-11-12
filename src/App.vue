@@ -74,8 +74,8 @@ export default {
    methods:{
 
      deleteTodo(id){
-        // console.log("-------id-----------------");
-        // console.log(id);
+        console.log("-------id-----------------");
+         console.log(id);
  db.collection('todoList').doc(id +'').delete().then(function() {
     console.log("Document with id: " + id +" is successfully deleted!");
         }).catch(function(error) {
@@ -118,15 +118,17 @@ export default {
      addTodo(newTodo){ 
       
         const newId = (new Date()).getTime(); //Get the time (milliseconds since January 1, 1970)
-
+        newTodo.id = newId; // how come you forgot this one!
+                                 //MUST BE STRING
        db.collection('todoList').doc(newId +'').set({  //****
-         
+        
          id: newId,
          title: newTodo.title,
          completed: newTodo.completed
        })
 
-        this.todos.push(newTodo); //for instant update..
+       this.todos.push(newTodo); //for instant update..
+      
      }
     
 
