@@ -74,7 +74,7 @@ export default {
    methods:{
 
      deleteTodo(id){
-        console.log("-------id-----------------");
+      //  console.log("-------id-----------------");
          console.log(id);
  db.collection('todoList').doc(id +'').delete().then(function() {
     console.log("Document with id: " + id +" is successfully deleted!");
@@ -87,7 +87,7 @@ export default {
      },
 
     markComplete(id){
-      console.log("-------id-----------------");
+    //  console.log("-------id-----------------");
      console.log(id);   
     
     let thisTitle = this.todos.filter(todo => todo.id === id)[0].title; 

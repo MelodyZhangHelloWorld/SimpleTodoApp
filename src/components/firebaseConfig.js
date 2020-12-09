@@ -1,11 +1,10 @@
 export default {
 
-    apiKey: "AIzaSyDxSI-ZW_z23D0wnETS0TBDmWXEbdoMH54",
-    authDomain: "simpletodoappvue.firebaseapp.com",
-    databaseURL: "https://simpletodoappvue.firebaseio.com",
-    projectId: "simpletodoappvue",
-    storageBucket: "simpletodoappvue.appspot.com",
-    messagingSenderId: "877677181054",
-    appId: "1:877677181054:web:b9aafe9636c35f1ab5c02f",
-    measurementId: "G-K6GB6J9VLK"
+    apiKey: "AIzaSyD8FD0YdllHQNvqViCjQJzo3dnpuipHavw",
+    authDomain: "simpletodoappvue-60f84.firebaseapp.com",
+    projectId: "simpletodoappvue-60f84",
+    storageBucket: "simpletodoappvue-60f84.appspot.com",
+    messagingSenderId: "580843580103",
+    appId: "1:580843580103:web:5e0e21067ad464bc642ce2",
+    measurementId: "G-FFMKHXG5ET"
 }
